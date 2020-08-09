@@ -18,14 +18,16 @@
     // welcome to participate in this experiment
     var welcome = {
         type: 'image-keyboard-response',
-        stimulus: 'img/welcome_small.png'
+        stimulus: 'img/welcome.png',
+        choices: ['space']
     };
     main_timeline.push(welcome);
 
     //show the instruction
     var instruction = {
         type: 'image-keyboard-response',
-        stimulus: 'img/instruction_small.png'
+        stimulus: 'img/instruction.png',
+        choices: ['space']
     };
     main_timeline.push(instruction);
 
@@ -39,27 +41,35 @@
     };
     var eight_boxes = {
         type: 'image-keyboard-response',
-        stimulus: 'img/boxes_small.png',
+        stimulus: 'img/boxes.png',
         data: {test_part: 'eight_boxes'},
-        choices: ['1', '2', '3', '4', '5', '7', '8'],
-
+        choices: ['1', '2', '3', '4', '5', '6', '7', '8']
     }
     
-    // the array of the devil's position
+    // the array of the devil's positions
     var devil_position = [
-        {stimulus: 'img/boxes_1_small.png', data: {'test_part': 'position', position: '1'}},
-        {stimulus: 'img/boxes_6_small.png', data: {'test_part': 'position', position: '6'}}
+        {stimulus: 'img/boxes_1.png', data: {'test_part': 'position', position: '1'}},
+        {stimulus: 'img/boxes_2.png', data: {'test_part': 'position', position: '2'}},
+        {stimulus: 'img/boxes_3.png', data: {'test_part': 'position', position: '3'}},
+        {stimulus: 'img/boxes_4.png', data: {'test_part': 'position', position: '4'}},
+        {stimulus: 'img/boxes_5.png', data: {'test_part': 'position', position: '5'}},
+        {stimulus: 'img/boxes_6.png', data: {'test_part': 'position', position: '6'}},
+        {stimulus: 'img/boxes_7.png', data: {'test_part': 'position', position: '7'}},
+        {stimulus: 'img/boxes_8.png', data: {'test_part': 'position', position: '8'}}
     ];
+
     var feedback = {
         type: 'image-keyboard-response',
         stimulus: jsPsych.timelineVariable('stimulus'),
-        choices: jsPsych.NO_KEYS,
+        // choices: jsPsych.NO_KEYS,
         data: jsPsych.timelineVariable('data'),
-        trial_duration: 1000
+        // trial_duration: 1000
+        choices:['space']
     }
+
     var emotion = {
         type: 'image-keyboard-response',
-        stimulus: 'img/emotion_small.png',
+        stimulus: 'img/emotion.png',
         data: {test_part: 'emotion'},
         choices: ['1', '2', '3', '4', '5', '6']
     }
@@ -90,6 +100,7 @@
             jsPsych.data.get().localSave('csv','mydata.csv');
         }
     })
+
 
 </script>
 </html>
