@@ -78,7 +78,7 @@
         timeline: [fixation, eight_boxes, feedback, emotion],
         timeline_variables: devil_position,
         randomize_order: true,
-        repetitions: 1
+        repetitions: 4
     };
     main_timeline.push(trials);
 
@@ -95,6 +95,7 @@
     //start the experiment
     jsPsych.init({ 
         timeline: main_timeline,
+        show_progress_bar: true,
         on_finish: function(){
             jsPsych.data.displayData();
             jsPsych.data.get().localSave('csv','mydata.csv');
