@@ -7,6 +7,7 @@
     <script src="jspsych-6.1.0/jspsych.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="jspsych-6.1.0/plugins/jspsych-image-button-response.js"></script>
     <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 </head>
 <body></body>
@@ -23,14 +24,36 @@
     };
     main_timeline.push(welcome);
 
+    var welcome2 = {
+        type: 'image-button-response',
+        stimulus: 'img/welcome.png',
+        choices: ['next']
+    };
+    // main_timeline.push(welcome2);
+
+
     //show the instruction
-    var instruction = {
+    var instruction1 = {
         type: 'image-keyboard-response',
-        stimulus: 'img/instruction.png',
+        stimulus: 'img/instruction1.png',
         choices: ['space']
     };
-    main_timeline.push(instruction);
+    main_timeline.push(instruction1);
+    var instruction2 = {
+        type: 'image-keyboard-response',
+        stimulus: 'img/instruction2.png',
+        choices: ['space']
+    };
+    main_timeline.push(instruction2);
+    var instruction3 = {
+        type: 'image-keyboard-response',
+        stimulus: 'img/instruction3.png',
+        choices: ['space']
+    };
+    main_timeline.push(instruction3);
 
+    
+    
     // show the fixation for 0.5s
     var fixation = {
         type: 'html-keyboard-response',
@@ -45,7 +68,47 @@
         data: {test_part: 'eight_boxes'},
         choices: ['1', '2', '3', '4', '5', '6', '7', '8']
     }
+
+    var feedback = {
+        type: 'image-keyboard-response',
+        stimulus: jsPsych.timelineVariable('stimulus'),
+        // choices: jsPsych.NO_KEYS,
+        data: jsPsych.timelineVariable('data'),
+        // trial_duration: 1000
+        choices:['space']
+    }
     
+    var emotion = {
+        type: 'image-keyboard-response',
+        stimulus: 'img/emotion.png',
+        data: {test_part: 'emotion'},
+        choices: ['1', '2', '3', '4', '5', '6']
+    }
+    
+
+    // practice trial
+    var devil_position_practice = [
+        {stimulus: 'img/boxes_3.png', data: {'test_part': 'position', position: '3'}},
+        {stimulus: 'img/boxes_6.png', data: {'test_part': 'position', position: '6'}}
+    ];
+
+    var practice_timeline = {
+        timeline: [fixation, eight_boxes, feedback, emotion],
+        timeline_variables: devil_position_practice,
+        randomize_order: true,
+        repetitions: 2
+    };
+    main_timeline.push(practice_timeline);
+
+    // formal experiment
+    var instruction4 = {
+        type: 'image-keyboard-response',
+        stimulus: 'img/instruction4.png',
+        choices: ['space']
+    };
+    main_timeline.push(instruction4);
+
+
     // the array of the devil's positions
     var devil_position = [
         {stimulus: 'img/boxes_1.png', data: {'test_part': 'position', position: '1'}},
@@ -58,22 +121,6 @@
         {stimulus: 'img/boxes_8.png', data: {'test_part': 'position', position: '8'}}
     ];
 
-    var feedback = {
-        type: 'image-keyboard-response',
-        stimulus: jsPsych.timelineVariable('stimulus'),
-        // choices: jsPsych.NO_KEYS,
-        data: jsPsych.timelineVariable('data'),
-        // trial_duration: 1000
-        choices:['space']
-    }
-
-    var emotion = {
-        type: 'image-keyboard-response',
-        stimulus: 'img/emotion.png',
-        data: {test_part: 'emotion'},
-        choices: ['1', '2', '3', '4', '5', '6']
-    }
-
     var trials = {
         timeline: [fixation, eight_boxes, feedback, emotion],
         timeline_variables: devil_position,
@@ -82,15 +129,8 @@
     };
     main_timeline.push(trials);
 
-    var debrief_block = {
-        type: 'html-keyboard-response',
-        stimulus: function(){
-            var eight_boxes_choose = jsPsych.data.get().values();
-            return '<p>'+eight_boxes_choose+'</p>'
-        }
-    };
-    //main_timeline.push(debrief_block);
     
+
 
     //start the experiment
     jsPsych.init({ 
